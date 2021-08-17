@@ -8,6 +8,17 @@ function computerPlay() {
     return play;
 }
 
+
+const buttons = document.querySelector('#buttons');
+buttons.addEventListener("click", function (e){
+    let results = playRound(computerPlay(), e.target.id);
+    let result = results[0];
+    console.log(result);
+    e.target.classList.remove('onclick');
+    void e.target.offsetHeight;
+    e.target.classList.add('onclick');
+})
+
 function playRound(computerSelection, playerSelection){
     computerSelection = computerSelection.toUpperCase();
     playerSelection = playerSelection.toUpperCase();
@@ -43,24 +54,24 @@ function playRound(computerSelection, playerSelection){
     return [result, cPoints, pPoints];
 }
 
-function game(){
-    playerSelection = prompt("choice: ");
+/* function game(){
+    //playerSelection = prompt("choice: ");
     let computerSelection = computerPlay();
     let array = playRound(computerSelection, playerSelection);
     console.log(array[0]);
-    playerSelection = prompt("choice: ");
+    //playerSelection = prompt("choice: ");
     computerSelection = computerPlay();
     array = playRound(computerSelection, playerSelection);
     console.log(array[0]);
-    playerSelection = prompt("choice: ");
+    //playerSelection = prompt("choice: ");
     computerSelection = computerPlay();
     array = playRound(computerSelection, playerSelection);
     console.log(array[0]);
-    playerSelection = prompt("choice: ");
+    //playerSelection = prompt("choice: ");
     computerSelection = computerPlay();
     array = playRound(computerSelection, playerSelection);
     console.log(array[0]);
-    playerSelection = prompt("choice: ");
+    //playerSelection = prompt("choice: ");
     computerSelection = computerPlay();
     array = playRound(computerSelection, playerSelection);
     console.log(array[0]);
@@ -73,6 +84,4 @@ function game(){
         return result
     }
 
-}
-result = game();
-console.log(result);
+} */
