@@ -1,4 +1,4 @@
-const choices = ['Rock', 'Paper', 'Scissors'];
+const choices = ['rock', 'paper', 'scissors'];
 let pPoints = 0;
 let cPoints = 0;
 
@@ -8,22 +8,50 @@ function computerPlay() {
     return play;
 }
 
-
 const buttons = document.querySelector('#buttons');
 buttons.addEventListener("click", function (e){
-    let results = playRound(computerPlay(), e.target.id);
-    let result = results[0];
-    console.log(result);
+    let play = computerPlay();
+    let results = playRound(play, e.target.id, false);
     e.target.classList.remove('onclick');
     void e.target.offsetHeight;
     e.target.classList.add('onclick');
+    let compPlay = document.getElementById(`${play}` + '2')
+    compPlay.classList.remove('onclick2')
+    void compPlay.offsetHeight;
+    compPlay.classList.add('onclick2');
+    document.getElementById("score2").textContent = results[1]
+    document.getElementById("score").textContent = results[2]
+    const reset = document.querySelector('#reset');
+    reset.addEventListener('click', function (e){
+        e.target.classList.remove('onclick');
+        void e.target.offsetHeight;
+        e.target.classList.add('onclick');
+        let tmp = playRound(0, 0, true);
+        document.getElementById("score").textContent = tmp[1]
+        document.getElementById("score2").textContent = tmp[0]
+    })
+    if (results[2] === 5) {
+        document.getElementById("score2").textContent = "LOSE"
+        document.getElementById("score").textContent = "WIN"
+        tmp = playRound(0, 0, true);
+    }
+    else if (results[1] === 5) {
+        document.getElementById("score2").textContent = "WIN"
+        document.getElementById("score").textContent = "LOSE"
+        tmp = playRound(0, 0, true);
+    }
+
 })
 
-function playRound(computerSelection, playerSelection){
+function playRound(computerSelection, playerSelection, tmp){
+    let result = null;
+    if (tmp === true) {
+        cPoints = 0;
+        pPoints = 0;
+        return [cPoints, pPoints];
+    }
     computerSelection = computerSelection.toUpperCase();
     playerSelection = playerSelection.toUpperCase();
-    let result = null;
-    
     if (computerSelection === playerSelection){
         result = "TIE";
     }
@@ -53,35 +81,3 @@ function playRound(computerSelection, playerSelection){
     }
     return [result, cPoints, pPoints];
 }
-
-/* function game(){
-    //playerSelection = prompt("choice: ");
-    let computerSelection = computerPlay();
-    let array = playRound(computerSelection, playerSelection);
-    console.log(array[0]);
-    //playerSelection = prompt("choice: ");
-    computerSelection = computerPlay();
-    array = playRound(computerSelection, playerSelection);
-    console.log(array[0]);
-    //playerSelection = prompt("choice: ");
-    computerSelection = computerPlay();
-    array = playRound(computerSelection, playerSelection);
-    console.log(array[0]);
-    //playerSelection = prompt("choice: ");
-    computerSelection = computerPlay();
-    array = playRound(computerSelection, playerSelection);
-    console.log(array[0]);
-    //playerSelection = prompt("choice: ");
-    computerSelection = computerPlay();
-    array = playRound(computerSelection, playerSelection);
-    console.log(array[0]);
-    if (array[1] > array[2]){
-        result = "You lose";
-        return result
-    }
-    else if (array[2] > array[1]){
-        result = "You win";
-        return result
-    }
-
-} */

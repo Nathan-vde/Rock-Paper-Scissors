@@ -7,8 +7,9 @@
         justify-content: center;
         margin-top: 25%;
     }
-    #rock, #paper, #scissors {
-        background-color: lightslategray; /* Green */
+    #rock, #paper, #scissors, #reset {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        background-color: lightslategray;
         border: none;
         border-radius: 10px;
         color: white;
@@ -19,7 +20,7 @@
         font-size: 16px;
         
     }
-    #rock.onclick, #paper.onclick, #scissors.onclick{
+    #rock.onclick, #paper.onclick, #scissors.onclick, #reset.onclick{
         animation-name: onclick;
         animation-duration: .35s;
     }
@@ -28,7 +29,59 @@
         50% {background-color: skyblue; border-radius: 20px;}
         100% {background-color: gray; border-radius: 10px;}
     }
+    #buttons2{
+        display: flex;
+        justify-content: center;
+        margin-top: -10%;
+    }
+    #rock2, #paper2, #scissors2 {
+        background-color: rgb(146, 41, 0); 
+        border: none;
+        border-radius: 10px;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        
+    }
+    #rock2.onclick2, #paper2.onclick2, #scissors2.onclick2{
+        animation-name: onclick2;
+        animation-duration: .35s;
+    }
+    @keyframes onclick2 {
+        0% {background-color: rgb(146, 41, 0); border-radius: 10px;}
+        50% {background-color: lightsalmon; border-radius: 20px;}
+        100% {background-color: rgb(146, 41, 0); border-radius: 10px;}
+    }
+    #score, #score2{
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-size: 30px;
+        text-align: center;
+    }
+    #score2 {
+        color:rgb(146, 41, 0);
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 30%;
+        margin-top: -3.2%;
+    }
+    #score {
+        color: gray;
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 30%;
+        margin-top: 4.2%;
+    }
+    #reset {
+        font-size: larger;
+        display: flex;
+        justify-content: center;
+        margin: 20% 40% 0% 45.2%;
+        background-color: gray;
 
+    }
 </style>
 
 <body> 
@@ -36,5 +89,15 @@
         <button id="rock">ROCK</button>
         <button id="paper">PAPER</button>
         <button id="scissors">SCISSORS</button>
+    </div>
+    <div id="buttons2">
+        <button id="rock2">ROCK</button>
+        <button id="paper2">PAPER</button>
+        <button id="scissors2">SCISSORS</button>
+    </div>
+    <div id="score2">0</div>
+    <div id="score">0</div>
+    <div>
+        <button id="reset">RESET</button>
     </div>
 </body>
