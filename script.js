@@ -11,73 +11,83 @@ function computerPlay() {
 const buttons = document.querySelector('#buttons');
 buttons.addEventListener("click", function (e){
     let play = computerPlay();
-    let results = playRound(play, e.target.id, false);
-    e.target.classList.remove('onclick');
+    let results = playRound(play, e.target.id, false); 
+
+    // Method that allows an animation to be repeated. Animation for players buttons
+    e.target.classList.remove('onclick'); 
     void e.target.offsetHeight;
     e.target.classList.add('onclick');
+
+    // Animations for the opponents buttons
     let compPlay = document.getElementById(`${play}` + '2')
     compPlay.classList.remove('onclick2')
     void compPlay.offsetHeight;
     compPlay.classList.add('onclick2');
-    document.getElementById("score2").textContent = results[1]
-    document.getElementById("score").textContent = results[2]
+
+    // Displaying scores
+    document.getElementById("score2").textContent = results[0];
+    document.getElementById("score").textContent = results[1];
+    
+    // Function to reset points if 'RESET' button is clicked
     const reset = document.querySelector('#reset');
-    reset.addEventListener('click', function (e){
+    reset.addEventListener('click', function (e){ 
         e.target.classList.remove('onclick');
         void e.target.offsetHeight;
         e.target.classList.add('onclick');
-        let tmp = playRound(0, 0, true);
-        document.getElementById("score").textContent = tmp[1]
-        document.getElementById("score2").textContent = tmp[0]
+        let end = playRound(0, 0, true);
+        document.getElementById("score").textContent = end[1]
+        document.getElementById("score2").textContent = end[0]
     })
-    if (results[2] === 5) {
+
+    // Determine who is the winner after 5 rounds then reset points to zero
+    if (results[1] === 5) {
         document.getElementById("score2").textContent = "LOSE"
         document.getElementById("score").textContent = "WIN"
-        tmp = playRound(0, 0, true);
+        end = playRound(0, 0, true);
     }
-    else if (results[1] === 5) {
+    else if (results[0] === 5) {
         document.getElementById("score2").textContent = "WIN"
         document.getElementById("score").textContent = "LOSE"
-        tmp = playRound(0, 0, true);
+        end = playRound(0, 0, true);
     }
 
 })
 
-function playRound(computerSelection, playerSelection, tmp){
+function playRound(computerSelection, playerSelection, end){
+    // If input is true the points will be reset
     let result = null;
-    if (tmp === true) {
+    if (end === true) {
         cPoints = 0;
         pPoints = 0;
         return [cPoints, pPoints];
     }
-    computerSelection = computerSelection.toUpperCase();
+
+    // Converting to upper case to avoid having to check multiple possible inputs styles
+    computerSelection = computerSelection.toUpperCase(); 
     playerSelection = playerSelection.toUpperCase();
+
+    // Determine result of one round
     if (computerSelection === playerSelection){
         result = "TIE";
     }
     else if (computerSelection === "ROCK" && playerSelection === "SCISSORS"){
-        result = "You lose, Rock beats Scissors";
         cPoints++;
     }
-    else if (computerSelection === "PAPER" && playerSelection === "SCISSORS"){
-        result = "You win, Scissors beats Paper";
-        pPoints++;
-    }
-    else if (computerSelection === "SCISSORS" && playerSelection === "ROCK"){
-        result = "You win, Rock beats Scissors";
-        pPoints++;
-    }
     else if (computerSelection === "SCISSORS" && playerSelection === "PAPER"){
-        result = "You lose, Scissors beats Paper";
         cPoints++;
     }
     else if (computerSelection === "PAPER" && playerSelection === "ROCK"){
-        result = "You lose, Paper beats Rock";
         cPoints++
     }
-    else if (computerSelection === "ROCK" && playerSelection === "PAPER"){
-        result = "You win, Paper beats Rock";
+    else if (computerSelection === "PAPER" && playerSelection === "SCISSORS"){
         pPoints++;
     }
-    return [result, cPoints, pPoints];
+    else if (computerSelection === "SCISSORS" && playerSelection === "ROCK"){
+        pPoints++;
+    }
+    else if (computerSelection === "ROCK" && playerSelection === "PAPER"){
+        pPoints++;
+    }
+    // Results are in array form as js does not allow multiple individual return values
+    return [cPoints, pPoints]; // return winner for this round
 }
